@@ -8,7 +8,6 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.Controller">
-
     <center>
         <SplitPane dividerPositions="0.3">
              <CustomTableView fx:id="tableData" editable="true" >

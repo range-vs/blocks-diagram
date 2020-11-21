@@ -1,6 +1,5 @@
 package services.builder;
 
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.StackedBarChart;
 
 public class Chart {

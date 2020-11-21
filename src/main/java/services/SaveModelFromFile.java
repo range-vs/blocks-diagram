@@ -12,7 +12,7 @@ public class SaveModelFromFile {
             for(var t: tdc.getTitle()){
                 writer.write("[" + t + "]\n");
                 for(var d: tdc.getData()){
-                    writer.write(String.valueOf(d.getData().get(i).get()) + "\n");
+                    writer.write(d.getData().get(i).get() + "\n");
                 }
                 ++i;
             }

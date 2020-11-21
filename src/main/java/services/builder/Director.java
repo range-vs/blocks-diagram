@@ -1,11 +1,9 @@
 package services.builder;
 
 import javafx.collections.ObservableList;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.control.TableColumn;
 import model.TableData;
-import view.CustomTableView;
 
 import java.util.ResourceBundle;
 

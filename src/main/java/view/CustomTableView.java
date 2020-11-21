@@ -36,10 +36,10 @@ public class CustomTableView extends TableView {
 
     private void initContextMenu(){
         HashMap<ContextMenuItems, MenuItemPack> items = new HashMap<>(){{
-           put(ContextMenuItems.ADD_NEW_COLUMN, new MenuItemPack(new EventHandler<ActionEvent>() {
+           put(ContextMenuItems.ADD_NEW_COLUMN, new MenuItemPack(new EventHandler<>() {
                @Override
                public void handle(ActionEvent event) {
-                   TableData td = new TableData(new ArrayList<>(){{
+                   TableData td = new TableData(new ArrayList<>() {{
                        add(0.0);
                    }});
                    data.clear();
@@ -48,18 +48,19 @@ public class CustomTableView extends TableView {
                    showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
                }
            }, resources.getString("context.menu.new.column")));
-            put(ContextMenuItems.ADD_BEFORE_ROW, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.ADD_BEFORE_ROW, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int index = getSelectionModel().getSelectedIndex();
                     ArrayList<Double> values = new ArrayList<>();
-                    for(int i = 0; i < data.get(0).getData().size(); ++i){
+                    for (int i = 0; i < data.get(0).getData().size(); ++i) {
                         values.add(0.0);
                     }
                     data.add(index, new TableData(values));
-                    showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));}
+                    showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
+                }
             }, resources.getString("context.menu.new.row.before")));
-            put(ContextMenuItems.ADD_AFTER_ROW, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.ADD_AFTER_ROW, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int index = getSelectionModel().getSelectedIndex();
@@ -71,7 +72,7 @@ public class CustomTableView extends TableView {
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
                 }
             }, resources.getString("context.menu.new.row.after")));
-            put(ContextMenuItems.REMOVE_ROW, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.REMOVE_ROW, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int index = getSelectionModel().getSelectedIndex();
@@ -81,7 +82,7 @@ public class CustomTableView extends TableView {
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
                 }
             }, resources.getString("context.menu.remove.row")));
-            put(ContextMenuItems.ADD_NEW_ROW, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.ADD_NEW_ROW, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     ArrayList<Double> values = new ArrayList<>();
@@ -93,7 +94,7 @@ public class CustomTableView extends TableView {
                 }
             }, resources.getString("context.menu.new.row")));
             // -------------- //
-            put(ContextMenuItems.ADD_BEFORE_COLUMN, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.ADD_BEFORE_COLUMN, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int ind = getColumns().indexOf(currentColumn);
@@ -109,7 +110,7 @@ public class CustomTableView extends TableView {
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
                 }
             }, resources.getString("context.menu.new.column.before")));
-            put(ContextMenuItems.ADD_AFTER_COLUMN, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.ADD_AFTER_COLUMN, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int ind = getColumns().indexOf(currentColumn) + 1;
@@ -125,7 +126,7 @@ public class CustomTableView extends TableView {
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
                 }
             }, resources.getString("context.menu.new.column.after")));
-            put(ContextMenuItems.REMOVE_COLUMN, new MenuItemPack(new EventHandler<ActionEvent>() {
+            put(ContextMenuItems.REMOVE_COLUMN, new MenuItemPack(new EventHandler<>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int ind = getColumns().indexOf(currentColumn);
@@ -167,7 +168,8 @@ public class CustomTableView extends TableView {
         for(var k: keys){
             contextMenu.getItems().add(contextMenuItems.get(k));
         }
-        showMenuItems(data != null ? BooleanHelper.toBoolean(data.size()) : false, BooleanHelper.toBoolean(getColumns().size()));
+        //showMenuItems(data != null ? BooleanHelper.toBoolean(data.size()) : false, BooleanHelper.toBoolean(getColumns().size()));
+        showMenuItems(data != null && BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
         return contextMenu;
     }
 
@@ -277,16 +279,6 @@ public class CustomTableView extends TableView {
             safeSetVisible(contextMenuItems.get(ContextMenuItems.REMOVE_COLUMN), true);
             safeSetVisible(contextMenuItems.get(ContextMenuItems.REMOVE_ROW), true);
         }
-//        else if(isRows && !isColumns){
-//            contextMenuItems.get(ContextMenuItems.ADD_NEW_COLUMN).setVisible(false);
-//            contextMenuItems.get(ContextMenuItems.ADD_NEW_ROW).setVisible(false);
-//            contextMenuItems.get(ContextMenuItems.ADD_AFTER_COLUMN).setVisible(true);
-//            contextMenuItems.get(ContextMenuItems.ADD_AFTER_ROW).setVisible(true);
-//            contextMenuItems.get(ContextMenuItems.ADD_BEFORE_COLUMN).setVisible(true);
-//            contextMenuItems.get(ContextMenuItems.ADD_BEFORE_ROW).setVisible(true);
-//            contextMenuItems.get(ContextMenuItems.REMOVE_COLUMN).setVisible(true);
-//            contextMenuItems.get(ContextMenuItems.REMOVE_ROW).setVisible(true);
-//        }
     }
 
     public void setResources(ResourceBundle resources) {

@@ -1,17 +1,13 @@
 package services;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.ObservableList;
 import model.TableData;
 import model.TableDataColumns;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.NoSuchElementException;
-import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class LoadModelFromFile {
 
