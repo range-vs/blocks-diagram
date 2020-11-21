@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import view.CustomTableView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.Controller">
+
+    <center>
+        <SplitPane dividerPositions="0.3">
+             <CustomTableView fx:id="tableData" editable="true" >
+                 <columns>
+                 </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+             </CustomTableView>
+            <ScrollPane fitToHeight="true" fitToWidth="true">
+                <content>
+                    <StackedBarChart minHeight="300.0" minWidth="400.0" fx:id="chart">
+                        <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis side="LEFT" />
+                        </yAxis>
+                    </StackedBarChart>
+                </content></ScrollPane>
+        </SplitPane>
+    </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="%menu.file">
+            <items>
+              <MenuItem mnemonicParsing="false" text="%menu.open" onAction="#openMenu" />
+                <MenuItem mnemonicParsing="false" text="%menu.save" onAction="#saveMenu" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="%menu.operations">
+            <items>
+              <MenuItem mnemonicParsing="false" text="%menu.build.chart" onAction="#buildChart" />
+                <MenuItem mnemonicParsing="false" text="%menu.clear.table" onAction="#clearTable" />
+                <MenuItem mnemonicParsing="false" text="%menu.clear.chart" onAction="#clearChart" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
