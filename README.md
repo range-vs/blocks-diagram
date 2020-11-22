@@ -11,6 +11,8 @@ Back: Java 13
 
 Gradle: 4.12 (JVM 13)
 
+IDE: Intellij Idea Community 2020.1
+
 
 Для запуска в Intellij Idea следует добавить конфигурацию (Add configuration -> Application), и установить класс Main и VM Option:
 `--module-path "путь до библиотек JavaFX sdk(папка lib)" --add-modules=javafx.controls,javafx.fxml,javafx.graphics`
