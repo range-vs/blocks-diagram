@@ -6,8 +6,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import model.TableData;
@@ -36,9 +34,7 @@ public class CustomTableView extends TableView {
 
     private void initContextMenu(){
         HashMap<ContextMenuItems, MenuItemPack> items = new HashMap<>(){{
-           put(ContextMenuItems.ADD_NEW_COLUMN, new MenuItemPack(new EventHandler<>() {
-               @Override
-               public void handle(ActionEvent event) {
+           put(ContextMenuItems.ADD_NEW_COLUMN, new MenuItemPack(event -> {
                    TableData td = new TableData(new ArrayList<>() {{
                        add(0.0);
                    }});
@@ -46,11 +42,8 @@ public class CustomTableView extends TableView {
                    data.add(td);
                    getColumns().add(createColumn(resources.getString("context.menu.new.column"), 0));
                    showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-               }
            }, resources.getString("context.menu.new.column")));
-            put(ContextMenuItems.ADD_BEFORE_ROW, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.ADD_BEFORE_ROW, new MenuItemPack(event -> {
                     int index = getSelectionModel().getSelectedIndex();
                     ArrayList<Double> values = new ArrayList<>();
                     for (int i = 0; i < data.get(0).getData().size(); ++i) {
@@ -58,11 +51,8 @@ public class CustomTableView extends TableView {
                     }
                     data.add(index, new TableData(values));
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.new.row.before")));
-            put(ContextMenuItems.ADD_AFTER_ROW, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.ADD_AFTER_ROW, new MenuItemPack(event -> {
                     int index = getSelectionModel().getSelectedIndex();
                     ArrayList<Double> values = new ArrayList<>();
                     for(int i = 0; i < data.get(0).getData().size(); ++i){
@@ -70,33 +60,24 @@ public class CustomTableView extends TableView {
                     }
                     data.add(index + 1, new TableData(values));
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.new.row.after")));
-            put(ContextMenuItems.REMOVE_ROW, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.REMOVE_ROW, new MenuItemPack(event -> {
                     int index = getSelectionModel().getSelectedIndex();
                     if(index == -1)
                         return;
                     data.remove(index);
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.remove.row")));
-            put(ContextMenuItems.ADD_NEW_ROW, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.ADD_NEW_ROW, new MenuItemPack(event -> {
                     ArrayList<Double> values = new ArrayList<>();
                     for(int i = 0; i < getColumns().size(); ++i){
                         values.add(0.0);
                     }
                     data.add(new TableData(values));
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.new.row")));
             // -------------- //
-            put(ContextMenuItems.ADD_BEFORE_COLUMN, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.ADD_BEFORE_COLUMN, new MenuItemPack(event -> {
                     int ind = getColumns().indexOf(currentColumn);
                     getColumns().add(ind, createColumn(resources.getString("context.menu.new.column"), data.size() - 1));
                     for(var elem: data){
@@ -108,11 +89,8 @@ public class CustomTableView extends TableView {
                         tc.setCellValueFactory(cellData -> cellData.getValue().getData().get(indexProp).asObject());
                     }
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.new.column.before")));
-            put(ContextMenuItems.ADD_AFTER_COLUMN, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.ADD_AFTER_COLUMN, new MenuItemPack(event -> {
                     int ind = getColumns().indexOf(currentColumn) + 1;
                     getColumns().add(ind, createColumn(resources.getString("context.menu.new.column"), data.size() - 1));
                     for(var elem: data){
@@ -124,11 +102,8 @@ public class CustomTableView extends TableView {
                         tc.setCellValueFactory(cellData -> cellData.getValue().getData().get(indexProp).asObject());
                     }
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.new.column.after")));
-            put(ContextMenuItems.REMOVE_COLUMN, new MenuItemPack(new EventHandler<>() {
-                @Override
-                public void handle(ActionEvent event) {
+            put(ContextMenuItems.REMOVE_COLUMN, new MenuItemPack(event -> {
                     int ind = getColumns().indexOf(currentColumn);
                     for(var elem: data){
                         elem.getData().remove(ind);
@@ -144,7 +119,6 @@ public class CustomTableView extends TableView {
                         tc.setCellValueFactory(cellData -> cellData.getValue().getData().get(indexProp).asObject());
                     }
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
-                }
             }, resources.getString("context.menu.remove.column")));
         }};
 
@@ -168,7 +142,6 @@ public class CustomTableView extends TableView {
         for(var k: keys){
             contextMenu.getItems().add(contextMenuItems.get(k));
         }
-        //showMenuItems(data != null ? BooleanHelper.toBoolean(data.size()) : false, BooleanHelper.toBoolean(getColumns().size()));
         showMenuItems(data != null && BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
         return contextMenu;
     }
