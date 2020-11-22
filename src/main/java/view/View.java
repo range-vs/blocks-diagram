@@ -74,6 +74,12 @@ public class View {
     }
 
     public void buildChart(ObservableList<TableData> data) {
+        if(data.isEmpty()){
+            messageBox(resources.getString("file.error.read.title"),
+                    resources.getString("app.error"),
+                    resources.getString("app.error.table.empty"));
+            return;
+        }
         Director director = new Director(chart, tableData.getColumns(), data, resources);
         director.build();
     }
