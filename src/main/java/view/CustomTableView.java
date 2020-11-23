@@ -45,6 +45,9 @@ public class CustomTableView extends TableView {
            }, resources.getString("context.menu.new.column")));
             put(ContextMenuItems.ADD_BEFORE_ROW, new MenuItemPack(event -> {
                     int index = getSelectionModel().getSelectedIndex();
+                    if(index== -1){
+                        index = 0;
+                    }
                     ArrayList<Double> values = new ArrayList<>();
                     for (int i = 0; i < data.get(0).getData().size(); ++i) {
                         values.add(0.0);
@@ -54,6 +57,9 @@ public class CustomTableView extends TableView {
             }, resources.getString("context.menu.new.row.before")));
             put(ContextMenuItems.ADD_AFTER_ROW, new MenuItemPack(event -> {
                     int index = getSelectionModel().getSelectedIndex();
+                    if(index== -1){
+                        index = 0;
+                    }
                     ArrayList<Double> values = new ArrayList<>();
                     for(int i = 0; i < data.get(0).getData().size(); ++i){
                         values.add(0.0);
