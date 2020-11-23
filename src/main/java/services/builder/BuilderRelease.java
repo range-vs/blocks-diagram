@@ -52,7 +52,7 @@ public class BuilderRelease extends Builder {
         chart.getChart().setAnimated(true);
         double bigValue = 0.0;
         for(var arr: data){
-            double tmp = arr.getData().stream().mapToDouble(DoublePropertyBase::get).max().orElseThrow(NoSuchElementException::new);
+            double tmp = arr.getData().stream().mapToDouble(DoublePropertyBase::get).sum();
             bigValue = Math.max(tmp, bigValue);
         }
         double smallValue = 0.0;
