@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
-public class BuilderRelease extends Builder {
+public class BuilderChart extends Builder {
 
     private Chart chart;
     private ObservableList<TableColumn> titles;
     private ObservableList<TableData> data;
     private ResourceBundle resources;
 
-    public BuilderRelease(StackedBarChart ch, ObservableList<TableColumn> titles, ObservableList<TableData> data, ResourceBundle resources){
+    public BuilderChart(StackedBarChart ch, ObservableList<TableColumn> titles, ObservableList<TableData> data, ResourceBundle resources){
         chart = new Chart(ch);
         this.titles = titles;
         this.data = data;

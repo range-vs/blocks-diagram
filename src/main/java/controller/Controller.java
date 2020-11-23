@@ -22,7 +22,7 @@ public class Controller extends View implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         data = FXCollections.observableArrayList();
         setResources(resources);
-        reinitTableData();
+        reInitTableData();
         setModel(data);
     }
 
@@ -38,7 +38,7 @@ public class Controller extends View implements Initializable {
                     resources.getString("file.error.read.msg") + "\"" + file.getAbsolutePath() + "\"");
             return;
         }
-        reinitTableData();
+        reInitTableData();
         createNewTableColumns(loadedData);
         data = FXCollections.observableArrayList(loadedData.getData());
         setModel(data);
@@ -52,7 +52,7 @@ public class Controller extends View implements Initializable {
     public void clearTable() {
         data.clear();
         super.clearTable();
-        reinitTableData();
+        reInitTableData();
     }
 
     @Override

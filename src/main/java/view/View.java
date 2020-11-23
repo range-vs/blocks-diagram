@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import model.TableData;
 import model.TableDataColumns;
 import services.builder.Director;
+import services.builder.DirectorChart;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class View {
         }
     }
 
-    public void reinitTableData(){
+    public void reInitTableData(){
         tableData.init();
     }
 
@@ -80,7 +81,7 @@ public class View {
                     resources.getString("app.error.table.empty"));
             return;
         }
-        Director director = new Director(chart, tableData.getColumns(), data, resources);
+        Director director = new DirectorChart(chart, tableData.getColumns(), data, resources);
         director.build();
     }
 

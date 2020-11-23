@@ -8,13 +8,9 @@ import model.TableData;
 import java.util.ResourceBundle;
 
 
-public class Director {
+public abstract class Director {
 
-    private Builder builder;
-
-    public Director(StackedBarChart ch, ObservableList<TableColumn> titles, ObservableList<TableData> data, ResourceBundle resources){
-        builder = new BuilderRelease(ch, titles, data, resources);
-    }
+    protected Builder builder;
 
     public void build(){
         builder.buildPartA();
