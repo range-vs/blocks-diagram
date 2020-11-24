@@ -15,6 +15,8 @@ public class Main extends Application {
         var locale = new Locale("ru", "UK");
         var bundle = ResourceBundle.getBundle("strings", locale);
         stage.setTitle(bundle.getString("window.title"));
+        stage.setMinHeight(200.0);
+        stage.setMinWidth(300.0);
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../main_window.fxml"), bundle), 700, 520));
         stage.show();
     }
