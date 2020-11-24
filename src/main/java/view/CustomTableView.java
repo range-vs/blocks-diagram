@@ -168,6 +168,7 @@ public class CustomTableView extends TableView {
     public TableColumn<TableData, Double> createColumn(String title, Integer index){
         // create column and register click on column
         TableColumn<TableData, Double> tableColumn = new TableColumn<>();
+        tableColumn.setSortable(false);
         tableColumn.setPrefWidth(150.0);
         tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new CustomDoubleStringConverter()));
         tableColumn.setCellValueFactory(cellData -> cellData.getValue().getData().get(index).asObject());
