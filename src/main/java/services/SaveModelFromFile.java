@@ -6,9 +6,9 @@ import java.io.*;
 public class SaveModelFromFile {
 
     public boolean saveData(File f, TableDataColumns tdc){
-        try(FileWriter writer = new FileWriter(f))
+        try(var writer = new FileWriter(f))
         {
-            int i = 0;
+            var i = 0;
             for(var t: tdc.getTitle()){
                 writer.write("[" + t + "]\n");
                 for(var d: tdc.getData()){

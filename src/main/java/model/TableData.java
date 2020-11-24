@@ -19,10 +19,6 @@ public class TableData {
         data = new ArrayList<>();
     }
 
-    public void setData(ArrayList<SimpleDoubleProperty> data) {
-        this.data = data;
-    }
-
     public ArrayList<SimpleDoubleProperty> getData() {
         return data;
     }

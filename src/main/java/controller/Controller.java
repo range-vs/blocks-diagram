@@ -9,7 +9,6 @@ import services.LoadModelFromFile;
 import services.SaveModelFromFile;
 import view.View;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -27,11 +26,11 @@ public class Controller extends View implements Initializable {
     }
 
     public void openMenu() {
-        File file = openFileDialog(resources.getString("open.file.msg"));
+        var file = openFileDialog(resources.getString("open.file.msg"));
         if(file == null){
             return;
         }
-        TableDataColumns loadedData = new LoadModelFromFile().loadData(file);
+        var loadedData = new LoadModelFromFile().loadData(file);
         if(loadedData == null){
             messageBox(resources.getString("file.error.read.title"),
                     resources.getString("file.error.read.header"),
@@ -42,6 +41,7 @@ public class Controller extends View implements Initializable {
         createNewTableColumns(loadedData);
         data = FXCollections.observableArrayList(loadedData.getData());
         setModel(data);
+        clearChart();
     }
 
     public void buildChart() {
@@ -67,12 +67,12 @@ public class Controller extends View implements Initializable {
                     resources.getString("app.error.table.empty"));
             return;
         }
-        File file = saveFileDialog(resources.getString("save.file.msg"));
+        var file = saveFileDialog(resources.getString("save.file.msg"));
         if(file == null){
             return;
         }
         var titles = getTitles();
-        TableDataColumns tableDataColumns = new TableDataColumns(new ArrayList<>(data), titles);
+        var tableDataColumns = new TableDataColumns(new ArrayList<>(data), titles);
         if(!new SaveModelFromFile().saveData(file, tableDataColumns)){
             messageBox(resources.getString("file.error.read.title"),
                     resources.getString("file.error.read.header"),

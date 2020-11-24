@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
-public class BuilderChart extends Builder {
+public class BuilderChart implements Builder {
 
     private Chart chart;
     private ObservableList<TableColumn> titles;
@@ -64,18 +64,18 @@ public class BuilderChart extends Builder {
         ((NumberAxis)chart.getChart().getYAxis()).setLowerBound(Math.round(smallValue));
         ((NumberAxis)chart.getChart().getYAxis()).setUpperBound(Math.round(bigValue));
         ((NumberAxis)chart.getChart().getYAxis()).setTickUnit(Math.round(bigValue / 10.0));
-        for(int i = 0; i < data.size(); ++i){
-            for(int j = 0; j < data.get(i).getData().size(); ++j){
+        for(var i = 0; i < data.size(); ++i){
+            for(var j = 0; j < data.get(i).getData().size(); ++j){
                 double value = data.get(i).getData().get(j).doubleValue();
                 ((XYChart.Series<String, Double>)chart.getChart().getData().get(j)).getData().add(new XYChart.Data<>(resources.getString("row") + (i + 1), value));
             }
         }
-        ArrayList<String> xaxisTitles = new ArrayList<>();
-        for(int i = 0; i < data.size(); ++i){
-            xaxisTitles.add(resources.getString("row") + (i + 1));
+        var xAxisTitles = new ArrayList<String>();
+        for(var i = 0; i < data.size(); ++i){
+            xAxisTitles.add(resources.getString("row") + (i + 1));
         }
         ((CategoryAxis)chart.getChart().getXAxis()).getCategories().clear();
-        ((CategoryAxis)chart.getChart().getXAxis()).setCategories(FXCollections.observableList(xaxisTitles));
+        ((CategoryAxis)chart.getChart().getXAxis()).setCategories(FXCollections.observableList(xAxisTitles));
     }
 
 }

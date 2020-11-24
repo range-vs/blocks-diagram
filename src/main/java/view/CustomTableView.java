@@ -2,12 +2,9 @@ package view;
 
 import utils.BooleanHelper;
 import converters.CustomDoubleStringConverter;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
 import model.TableData;
 
 import java.util.*;
@@ -33,9 +30,9 @@ public class CustomTableView extends TableView {
     }
 
     private void initContextMenu(){
-        HashMap<ContextMenuItems, MenuItemPack> items = new HashMap<>(){{
+        var items = new HashMap<ContextMenuItems, MenuItemPack>(){{
            put(ContextMenuItems.ADD_NEW_COLUMN, new MenuItemPack(event -> {
-                   TableData td = new TableData(new ArrayList<>() {{
+                   var td = new TableData(new ArrayList<>() {{
                        add(0.0);
                    }});
                    data.clear();
@@ -44,11 +41,11 @@ public class CustomTableView extends TableView {
                    showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
            }, resources.getString("context.menu.new.column")));
             put(ContextMenuItems.ADD_BEFORE_ROW, new MenuItemPack(event -> {
-                    int index = getSelectionModel().getSelectedIndex();
+                    var index = getSelectionModel().getSelectedIndex();
                     if(index== -1){
                         index = 0;
                     }
-                    ArrayList<Double> values = new ArrayList<>();
+                    var values = new ArrayList<Double>();
                     for (int i = 0; i < data.get(0).getData().size(); ++i) {
                         values.add(0.0);
                     }
@@ -56,11 +53,11 @@ public class CustomTableView extends TableView {
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
             }, resources.getString("context.menu.new.row.before")));
             put(ContextMenuItems.ADD_AFTER_ROW, new MenuItemPack(event -> {
-                    int index = getSelectionModel().getSelectedIndex();
+                    var index = getSelectionModel().getSelectedIndex();
                     if(index== -1){
                         index = 0;
                     }
-                    ArrayList<Double> values = new ArrayList<>();
+                    var values = new ArrayList<Double>();
                     for(int i = 0; i < data.get(0).getData().size(); ++i){
                         values.add(0.0);
                     }
@@ -68,14 +65,14 @@ public class CustomTableView extends TableView {
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
             }, resources.getString("context.menu.new.row.after")));
             put(ContextMenuItems.REMOVE_ROW, new MenuItemPack(event -> {
-                    int index = getSelectionModel().getSelectedIndex();
+                    var index = getSelectionModel().getSelectedIndex();
                     if(index == -1)
                         return;
                     data.remove(index);
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
             }, resources.getString("context.menu.remove.row")));
             put(ContextMenuItems.ADD_NEW_ROW, new MenuItemPack(event -> {
-                    ArrayList<Double> values = new ArrayList<>();
+                    var values = new ArrayList<Double>();
                     for(int i = 0; i < getColumns().size(); ++i){
                         values.add(0.0);
                     }
@@ -84,33 +81,33 @@ public class CustomTableView extends TableView {
             }, resources.getString("context.menu.new.row")));
             // -------------- //
             put(ContextMenuItems.ADD_BEFORE_COLUMN, new MenuItemPack(event -> {
-                    int ind = getColumns().indexOf(currentColumn);
+                    var ind = getColumns().indexOf(currentColumn);
                     getColumns().add(ind, createColumn(resources.getString("context.menu.new.column"), data.size() - 1));
                     for(var elem: data){
                         elem.getData().add(ind, new SimpleDoubleProperty(0.0));
                     }
-                    for(int i = 0; i < getColumns().size(); ++i){ // recalculate index model
-                        TableColumn<TableData, Double> tc = (TableColumn<TableData, Double>) getColumns().get(i);
-                        final int indexProp = i;
+                    for(var i = 0; i < getColumns().size(); ++i){ // recalculate index model
+                        var tc = (TableColumn<TableData, Double>) getColumns().get(i);
+                        final var indexProp = i;
                         tc.setCellValueFactory(cellData -> cellData.getValue().getData().get(indexProp).asObject());
                     }
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
             }, resources.getString("context.menu.new.column.before")));
             put(ContextMenuItems.ADD_AFTER_COLUMN, new MenuItemPack(event -> {
-                    int ind = getColumns().indexOf(currentColumn) + 1;
+                    var ind = getColumns().indexOf(currentColumn) + 1;
                     getColumns().add(ind, createColumn(resources.getString("context.menu.new.column"), data.size() - 1));
                     for(var elem: data){
                         elem.getData().add(ind, new SimpleDoubleProperty(0.0));
                     }
-                    for(int i = 0; i < getColumns().size(); ++i){ // recalculate index model
-                        TableColumn<TableData, Double> tc = (TableColumn<TableData, Double>) getColumns().get(i);
-                        final int indexProp = i;
+                    for(var i = 0; i < getColumns().size(); ++i){ // recalculate index model
+                        var tc = (TableColumn<TableData, Double>) getColumns().get(i);
+                        final var indexProp = i;
                         tc.setCellValueFactory(cellData -> cellData.getValue().getData().get(indexProp).asObject());
                     }
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
             }, resources.getString("context.menu.new.column.after")));
             put(ContextMenuItems.REMOVE_COLUMN, new MenuItemPack(event -> {
-                    int ind = getColumns().indexOf(currentColumn);
+                    var ind = getColumns().indexOf(currentColumn);
                     for(var elem: data){
                         elem.getData().remove(ind);
                     }
@@ -119,9 +116,9 @@ public class CustomTableView extends TableView {
                     }
                     getColumns().remove(currentColumn);
                     currentColumn = null;
-                    for(int i = 0; i < getColumns().size(); ++i){
-                        TableColumn<TableData, Double> tc = (TableColumn<TableData, Double>) getColumns().get(i);
-                        final int indexProp = i;
+                    for(var i = 0; i < getColumns().size(); ++i){
+                        var tc = (TableColumn<TableData, Double>) getColumns().get(i);
+                        final var indexProp = i;
                         tc.setCellValueFactory(cellData -> cellData.getValue().getData().get(indexProp).asObject());
                     }
                     showMenuItems(BooleanHelper.toBoolean(data.size()), BooleanHelper.toBoolean(getColumns().size()));
@@ -130,7 +127,7 @@ public class CustomTableView extends TableView {
 
         contextMenuItems = new HashMap<>();
         for(var pair: items.entrySet()){
-            MenuItem item = new MenuItem(pair.getValue().getTitle());
+            var item = new MenuItem(pair.getValue().getTitle());
             contextMenuItems.put(pair.getKey(), item);
             item.setOnAction(pair.getValue().getHandler());
         }
@@ -138,13 +135,13 @@ public class CustomTableView extends TableView {
     }
 
     private ContextMenu createContextMenuRows(){
-        List<ContextMenuItems> keys =
+        var keys =
                 Arrays.asList(ContextMenuItems.ADD_NEW_COLUMN,
                         ContextMenuItems.ADD_BEFORE_ROW,
                         ContextMenuItems.ADD_AFTER_ROW,
                         ContextMenuItems.REMOVE_ROW,
                         ContextMenuItems.ADD_NEW_ROW);
-        ContextMenu contextMenu = new ContextMenu();
+        var contextMenu = new ContextMenu();
         for(var k: keys){
             contextMenu.getItems().add(contextMenuItems.get(k));
         }
@@ -153,11 +150,11 @@ public class CustomTableView extends TableView {
     }
 
     private ContextMenu createContextMenuColumns(){
-        List<ContextMenuItems> keys =
+        var keys =
                 Arrays.asList(ContextMenuItems.ADD_BEFORE_COLUMN,
                         ContextMenuItems.ADD_AFTER_COLUMN,
                         ContextMenuItems.REMOVE_COLUMN);
-        ContextMenu contextMenu = new ContextMenu();
+        var contextMenu = new ContextMenu();
         for(var k: keys){
             contextMenu.getItems().add(contextMenuItems.get(k));
         }
@@ -167,54 +164,25 @@ public class CustomTableView extends TableView {
 
     public TableColumn<TableData, Double> createColumn(String title, Integer index){
         // create column and register click on column
-        TableColumn<TableData, Double> tableColumn = new TableColumn<>();
+        var tableColumn = new TableColumn<TableData, Double>();
         tableColumn.setSortable(false);
         tableColumn.setPrefWidth(150.0);
-        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new CustomDoubleStringConverter()));
+
+        tableColumn.setCellFactory(param -> new CustomTextFieldTableCell<>(new CustomDoubleStringConverter(), resources));
         tableColumn.setCellValueFactory(cellData -> cellData.getValue().getData().get(index).asObject());
-        TextField titleHeaderColumn = new TextField(title);
+        var titleHeaderColumn = new TextField(title);
         titleHeaderColumn.setUserData(tableColumn);
         titleHeaderColumn.setOnMouseClicked(
                 e -> currentColumn = (TableColumn)((TextField)e.getSource()).getUserData()
         );
 
         titleHeaderColumn.setContextMenu(contextMenuColumns);
-        var defaultContextMenu = createDefaultMenuItems(titleHeaderColumn);
+        var defaultContextMenu = TextFieldContextMenuCreator.createDefaultMenuItemsTextField(titleHeaderColumn, resources);
         titleHeaderColumn.getContextMenu().setOnShowing(event -> titleHeaderColumn.getContextMenu().getItems().addAll(defaultContextMenu));
         titleHeaderColumn.getContextMenu().setOnHiding(event -> titleHeaderColumn.getContextMenu().getItems().remove(4, titleHeaderColumn.getContextMenu().getItems().size()));
 
         tableColumn.setGraphic(titleHeaderColumn);
         return tableColumn;
-    }
-
-    private ArrayList<MenuItem> createDefaultMenuItems(TextInputControl t) {
-        MenuItem cut = new MenuItem(resources.getString("context.menu.cut"));
-        cut.setOnAction(e -> t.cut());
-        MenuItem copy = new MenuItem(resources.getString("context.menu.copy"));
-        copy.setOnAction(e -> t.copy());
-        MenuItem paste = new MenuItem(resources.getString("context.menu.paste"));
-        paste.setOnAction(e -> t.paste());
-        MenuItem delete = new MenuItem(resources.getString("context.menu.delete"));
-        delete.setOnAction(e -> t.deleteText(t.getSelection()));
-        MenuItem selectAll = new MenuItem(resources.getString("context.menu.select.all"));
-        selectAll.setOnAction(e -> t.selectAll());
-
-        BooleanBinding emptySelection = Bindings.createBooleanBinding(() ->
-                        t.getSelection().getLength() == 0,
-                t.selectionProperty());
-
-        cut.disableProperty().bind(emptySelection);
-        copy.disableProperty().bind(emptySelection);
-        delete.disableProperty().bind(emptySelection);
-
-        return new ArrayList<>(){{
-            add(cut);
-            add(copy);
-            add(paste);
-            add(delete);
-            add(new SeparatorMenuItem());
-            add(selectAll);
-        }};
     }
 
     public void setData(ObservableList<TableData> data) {

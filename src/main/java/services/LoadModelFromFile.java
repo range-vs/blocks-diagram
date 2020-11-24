@@ -12,13 +12,12 @@ import java.util.NoSuchElementException;
 public class LoadModelFromFile {
 
     public TableDataColumns loadData(File f){
-        ArrayList<String> title = new ArrayList<>();
-        ArrayList<ArrayList<Double>> values = new ArrayList<>();
-        TableDataColumns tdc = new TableDataColumns();
-
+        var title = new ArrayList<String>();
+        var values = new ArrayList<ArrayList<Double>>();
+        var tdc = new TableDataColumns();
         try {
-            FileReader fr = new FileReader(f);
-            BufferedReader reader = new BufferedReader(fr);
+            var fr = new FileReader(f);
+            var reader = new BufferedReader(fr);
             String line = "";
             while (true) {
                 line = reader.readLine();
@@ -46,16 +45,16 @@ public class LoadModelFromFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int bigSize = values.stream().mapToInt(n -> n.size()).max().orElseThrow(NoSuchElementException::new);
+        var bigSize = values.stream().mapToInt(ArrayList::size).max().orElseThrow(NoSuchElementException::new);
         for(var arr: values){
             arr.addAll(Collections.nCopies(bigSize - arr.size(), 0.0));
         }
-        for (int i = 0; i < bigSize; ++i) {
+        for (var i = 0; i < bigSize; ++i) {
             tdc.getData().add(new TableData());
         }
-        for(int j = 0; j < bigSize; ++j) {
-            for (int i = 0; i < values.size(); ++i) {
-                var val = values.get(i).get(j);
+        for(var j = 0; j < bigSize; ++j) {
+            for (var value : values) {
+                var val = value.get(j);
                 tdc.getData().get(j).getData().add(new SimpleDoubleProperty(val));
             }
         }

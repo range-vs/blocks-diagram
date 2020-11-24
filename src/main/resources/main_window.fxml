@@ -10,9 +10,10 @@
             fx:controller="controller.Controller">
     <center>
         <SplitPane dividerPositions="0.3">
-             <CustomTableView fx:id="tableData" editable="true" >
-                 <columns>
-                 </columns>
+             <CustomTableView fx:id="tableData" editable="true">
+                 <placeholder>
+                     <Label text="%table.placeholder"/>
+                 </placeholder>
                <columnResizePolicy>
                   <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>

@@ -12,10 +12,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Locale locale = new Locale("ru", "UK");
-        ResourceBundle bundle = ResourceBundle.getBundle("strings", locale);
+        var locale = new Locale("ru", "UK");
+        var bundle = ResourceBundle.getBundle("strings", locale);
         stage.setTitle(bundle.getString("window.title"));
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../sample.fxml"), bundle), 700, 520));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../main_window.fxml"), bundle), 700, 520));
         stage.show();
     }
 

@@ -36,27 +36,25 @@ public class View {
     }
 
     public File openFileDialog(String title){
-        FileChooser fileChooser = new FileChooser();
+        var fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter(resources.getString("open.file.mask"),
                         resources.getString("open.file.extension")));
-        File selectedFile = fileChooser.showOpenDialog(null);
-        return selectedFile;
+        return fileChooser.showOpenDialog(null);
     }
 
     public File saveFileDialog(String title){
-        FileChooser fileChooser = new FileChooser();
+        var fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter(resources.getString("open.file.mask"),
                         resources.getString("open.file.extension")));
-        File selectedFile = fileChooser.showSaveDialog(null);
-        return selectedFile;
+        return fileChooser.showSaveDialog(null);
     }
 
     public void messageBox(String title, String header, String msg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        var alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(msg);
@@ -65,7 +63,7 @@ public class View {
 
     public void createNewTableColumns(TableDataColumns tdc){
         tableData.getColumns().clear();
-        for(Integer i = 0; i < tdc.getTitle().size(); ++i){
+        for(var i = 0; i < tdc.getTitle().size(); ++i){
             tableData.getColumns().add(tableData.createColumn(tdc.getTitle().get(i), i));
         }
     }
@@ -81,7 +79,7 @@ public class View {
                     resources.getString("app.error.table.empty"));
             return;
         }
-        Director director = new DirectorChart(chart, tableData.getColumns(), data, resources);
+        var director = new DirectorChart(chart, tableData.getColumns(), data, resources);
         director.build();
     }
 
@@ -94,9 +92,9 @@ public class View {
     }
 
     public ArrayList<String> getTitles(){
-        ArrayList<String> titles = new ArrayList<>();
+        var titles = new ArrayList<String>();
         for(var t: tableData.getColumns()){
-            TableColumn<String, Double> tableColumn = (TableColumn<String, Double>)t;
+            var tableColumn = (TableColumn<String, Double>)t;
             titles.add(((TextField)tableColumn.getGraphic()).getText());
         }
         return titles;
