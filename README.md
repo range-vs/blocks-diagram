@@ -6,7 +6,7 @@
 - View: JavaFX 15 (fxml and Java, minimum JavaFX 11);
 - Back: Java 13 (minimum Java 10);
 - Gradle: 4.12 (JVM 13, minimum Java 8);
-- IDE: Intellij Idea Community Edition 2020.1.4 (minimum Intellij Idea Community Edition 2018).
+- IDE: Intellij Idea Community Edition 2020.2.4 (minimum Intellij Idea Community Edition 2018).
 
 
 Для запуска в Intellij Idea следует добавить конфигурацию (Edit Configuration -> Add New Configuration -> Application). Далее выполнить действия:
